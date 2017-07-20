@@ -1,0 +1,46 @@
+{
+"policy":{
+                "location":"WALLET",
+                "type":"UPERUS",
+                "storeServer":"State Farmserver",
+                "storeBrand":"State Farm",
+                "lob":"Auto",
+                "walletid":"1111",
+                "applicationid":"1111",
+                "brokerid":"1111"
+},
+"event":{
+        "eventType": "APPLICATION",
+        "triggerEventId": "1",
+        "contentDef": "Q_AUTO_QUESTIONAIRE_1",
+        "serverSync": 1234,
+        "compliance": 1234,
+        "eventData": [
+            {
+                "questionaireType": "Q_AUTO_APPLICATION_1",
+                "cardID": "1",
+                "setID": "1",
+                "setNickName": "car",
+                "sectionID": "1234",
+                "sectionNickName": "abc",
+                "pageID": "1",
+                "fieldName": "FIRSTNAME",
+                "content": "John",
+                "fieldCode": "1111"
+            },
+            {
+                "questionaireType": "Q_AUTO_APPLICATION_2",
+                "cardID": "2",
+                "setID": "2",
+                "setNickName": "Van",
+                "sectionID": "2",
+                "sectionNickName": "def",
+                "pageID": "1",
+                "fieldName": "image",
+                "content": "abvvv",
+                "fieldCode": "1111"
+            }
+        ]
+    }
+}
+
