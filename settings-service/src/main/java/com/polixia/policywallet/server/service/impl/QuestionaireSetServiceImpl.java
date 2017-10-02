@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 /**
  * QuestionaireSet Service Implementation
@@ -89,7 +90,7 @@ public class QuestionaireSetServiceImpl implements QuestionaireSetService {
                     ApplicationConstant.ERROR_CODE_COMPLIANCERULE_NOT_FOUND, ApplicationConstant.HTTP_BAD_REQUEST);
 
         }
-        payload.getQuestionaireCard().getQuestionaireType().setTimestamp(LocalDateTime.now());
+        payload.getQuestionaireCard().getQuestionaireType().setTimestamp(LocalDateTime.now().atZone(ZoneOffset.UTC).toEpochSecond());
         return questionaireSetRepository.save(payload);
     }
 }

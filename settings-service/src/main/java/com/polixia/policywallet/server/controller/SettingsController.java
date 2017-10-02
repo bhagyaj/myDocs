@@ -7,16 +7,16 @@ import com.polixia.policywallet.server.jview.DataView;
 import com.polixia.policywallet.server.model.*;
 import com.polixia.policywallet.server.service.SettingsService;
 import com.polixia.policywallet.server.util.ApplicationConstant;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -162,13 +162,38 @@ public class SettingsController {
     @RequestMapping(value = "/questionaires/cards/{Id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @JsonView(DataView.Basic.class)
-    public QuestionaireCard getCardById(@PathVariable("Id") int cardId) {
+    public QuestionaireCard getCardById(@PathVariable("Id") int cardId, @RequestParam("level")int level) {
         QuestionaireCard cards = settingsService.getCardById(cardId);
         if (cards == null) {
             throw new PolixiaException(ApplicationConstant.ERROR_MESSAGE_DATA_NOT_AVAILABLE,
                     ApplicationConstant.ERROR_CODE_DATA_NOT_AVAILABLE, ApplicationConstant.HTTP_SC_NOT_FOUND);
         }
+        try {
+            Cloner cloner=new Cloner();
+            cards = (QuestionaireCard)filter(cards,level);
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
         return cards;
+    }
+
+    private Object filter(Object object, int level) throws JSONException {
+        JSONObject referer = new JSONObject(object);
+        Iterator<?> keys = referer.keys();
+
+        while( keys.hasNext() ) {
+            String key = (String)keys.next();
+            if ( referer.get(key) instanceof JSONObject ) {
+                level--;
+                if (level>0){
+                    filter(object,level);
+                }else {
+                    referer.remove(key);
+                }
+            }
+        }
+        return referer;
     }
 
     /**
@@ -524,14 +549,10 @@ public class SettingsController {
     @RequestMapping(value = "/questionaires", params = "timestamp")
     @ResponseStatus(HttpStatus.OK)
     @JsonView(DataView.HDataSummary.class)
-    public List<QuestionaireData> getHierarchicalQuestionaireSync(@RequestParam("timestamp") String dateAndTime) {
-//        public List<QuestionaireData> getHierarchicalQuestionaireSync(@RequestParam("timestamp") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateAndTime) {
+    public List<QuestionaireData> getHierarchicalQuestionaireSync(@RequestParam("timestamp") Long dateAndTime) {
 
-            System.out.println("***********************");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd HH:mm:ss ");
-        LocalDateTime localDateTime = LocalDateTime.parse(dateAndTime, formatter);
-        return settingsService.getHierarchicalQuestionaireSync(localDateTime);
-//        return null;
+        return settingsService.getHierarchicalQuestionaireSync(dateAndTime);
+
     }
 
     /**
@@ -553,26 +574,17 @@ public class SettingsController {
     /**
      * Get compliances greater than given version
      *
-     * @param version the given version
+     * @param timestamp the given version
      * @return list of compliance rules
      */
-    @RequestMapping(value = "/compliances" , params = "version")
+    @RequestMapping(value = "/compliances" , params = "timestamp")
     @ResponseStatus(HttpStatus.OK)
     @JsonView(DataView.Basic.class)
-    public List<Compliance> getCompliance(@RequestParam("version") int version) {
-        return settingsService.getCompliance(version);
-    }
+    public List<ComplianceRule> getCompliance(@RequestParam("timestamp") Long timestamp) {
 
-    /**
-     * Get all available compliances
-     *
-     * @return list of compliance rules
-     */
-    @RequestMapping(value = "/compliances")
-    @ResponseStatus(HttpStatus.OK)
-    @JsonView(DataView.Specific.class)
-    public List<ComplianceRule> getAllCompliances(@RequestParam("storeserver") Integer storeserver) {
-        return settingsService.getAllCompliances(storeserver);
+        List<ComplianceRule> complianceRule= settingsService.getCompliance(timestamp);
+        return complianceRule;
+
     }
 
 

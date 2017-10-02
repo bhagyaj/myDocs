@@ -42,11 +42,12 @@ public interface SettingsService {
 
     public List<Setting> getVersions(int version);
 
-    public List<Compliance> getCompliance(int version);
 
     QuestionaireSet getQuestionaireSet(int id);
 
     public List<ResponseData> getcSettingsByVersion(Integer id);
+
+    List<ComplianceRule> getCompliance(long timestamp);
 
 
     List<FieldDef> getFieldDefinitions(Integer storeserver);

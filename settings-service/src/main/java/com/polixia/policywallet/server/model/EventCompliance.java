@@ -38,7 +38,7 @@ public class EventCompliance {
     private String eventType;
     @ManyToOne
     @JoinColumn(name = "ComplianceRuleId")
-    @JsonView(DataView.Basic.class)
+    @JsonView(DataView.DataSummary.class)
     @NotNull(message = ApplicationConstant.ERROR_MESSAGE_REQUIRED_DATA_NOT_FOUND)
     private ComplianceRule cComplianceRule;
     @Column(name = "ComplianceRule")

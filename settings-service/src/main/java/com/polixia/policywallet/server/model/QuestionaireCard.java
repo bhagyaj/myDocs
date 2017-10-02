@@ -138,4 +138,17 @@ public class QuestionaireCard {
     public void setSets(Set<QuestionaireSet> sets) {
         this.sets = sets;
     }
+
+    public QuestionaireCard clone(QuestionaireCard questionaireCard){
+        QuestionaireCard clone = new QuestionaireCard();
+        clone.setId(questionaireCard.getId());
+        clone.setVersion(questionaireCard.getVersion());
+        clone.setQuestionaireOwner(questionaireCard.getQuestionaireOwner());
+        clone.setQuestionaireType(questionaireCard.getQuestionaireType());
+        clone.setQuestionaire(questionaireCard.getQuestionaire());
+        
+        clone.setCardName(questionaireCard.getCardName());
+        clone.setNoSet(questionaireCard.getNoSet());
+        return clone;
+    }
 }

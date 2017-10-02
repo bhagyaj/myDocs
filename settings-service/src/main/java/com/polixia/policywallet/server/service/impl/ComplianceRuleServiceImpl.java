@@ -24,8 +24,8 @@ public class ComplianceRuleServiceImpl implements ComplianceRuleService {
     }
 
     @Override
-    public List<ComplianceRule> getComplianceRulesByVersion(Integer version) {
-        return complianceRuleRepository.getComplianceRulesByVersion(version);
+    public List<ComplianceRule> getComplianceRulesBytimestampGreaterThan(long timestamp) {
+        return complianceRuleRepository.getComplianceRulesBytimestampGreaterThan(timestamp);
     }
 
     @Override

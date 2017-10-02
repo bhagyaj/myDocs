@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 /**
@@ -34,7 +35,7 @@ public class QuestionaireTypeServiceImpl implements QuestionaireTypeService {
             payload.setStoreServer(storeServer);
             payload.setVersion(storeServer.getVersion());
             payload.setQuestionaireOwner(storeServer.getStoreServer());
-            payload.setTimestamp(LocalDateTime.now().getLong());
+            payload.setTimestamp(LocalDateTime.now().atZone(ZoneOffset.UTC).toEpochSecond());
             return questionaireTypeRepository.save(payload);
         } else {
             throw new PolixiaException(ApplicationConstant.ERROR_MESSAGE_QUESTIONAIRETYPE_ID_NOT_FOUND, ApplicationConstant.ERROR_CODE_QUESTIONAIRETYPE_ID_NOT_FOUND, ApplicationConstant.HTTP_SC_NOT_FOUND);

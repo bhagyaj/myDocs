@@ -26,12 +26,15 @@
             <artifactId>core</artifactId>
             <version>2.0.0-SNAPSHOT</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.json/json -->
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-java8</artifactId>
-            <version>5.1.0.Final</version>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20090211</version>
         </dependency>
-  </dependencies>
+
+    </dependencies>
 
     <dependencyManagement>
         <dependencies>

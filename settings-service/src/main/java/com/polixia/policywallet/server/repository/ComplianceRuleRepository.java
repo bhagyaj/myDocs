@@ -20,4 +20,6 @@ public interface ComplianceRuleRepository extends Repository<ComplianceRule, Int
 
     @Query("SELECT cr FROM ComplianceRule cr WHERE cr.sStoreServer.id=:storeserver")
     List<ComplianceRule> findBystoreserver(@Param("storeserver") Integer storeserver);
+
+    List<ComplianceRule> getComplianceRulesBytimestampGreaterThan(long timestamp);
 }

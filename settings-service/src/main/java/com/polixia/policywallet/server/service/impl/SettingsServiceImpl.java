@@ -148,6 +148,11 @@ public class SettingsServiceImpl implements SettingsService {
         settingsDataList.add(settingsData);
         return settingsDataList;
     }
+    @Override
+    public List<ComplianceRule> getCompliance(long timestamp) {
+        return complianceRuleService.getComplianceRulesBytimestampGreaterThan(timestamp);
+    }
+
 
     @Override
     public List<FieldDef> getFieldDefinitions(Integer storeserver) {
@@ -279,21 +284,6 @@ public class SettingsServiceImpl implements SettingsService {
         return settingsRepository.getSettingsListByVersion(version);
     }
 
-    @Override
-    public List<Compliance> getCompliance(int version) {
-        List<Compliance> data = new ArrayList<>();
-        List<Setting> versions = getVersions(version);
-        for (Setting setting : versions) {
-            Compliance compliance = new Compliance();
-            compliance.setVersion(setting.getId());
-            compliance.setcComplianceRuleDefs(complianceRuleDefService.getComplianceRuleDefByVersion(setting.getId()));
-            compliance.setcComplianceRules(complianceRuleService.getComplianceRulesByVersion(setting.getId()));
-            compliance.setcEventCompliances(eventCompliancesService.getEventComplianceByVersion(setting.getId()));
-            compliance.setcQuestionairePageFldCompliances(questionairePageFldCompliancesService.getPageFldComplianceByVersion(setting.getId()));
-            data.add(compliance);
-        }
-        return data;
-    }
 
     @Override
     public List<StoreServer> getStoreserverVersions(String storeserver) {

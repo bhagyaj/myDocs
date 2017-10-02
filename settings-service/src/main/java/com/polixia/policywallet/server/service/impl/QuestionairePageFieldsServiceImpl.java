@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 /**
  * QuestionairePageFields Service Implementation
@@ -63,7 +64,7 @@ public class QuestionairePageFieldsServiceImpl implements QuestionairePageFields
             payload.setFieldName(cFieldDef.getFieldName());
         } else
             throw new PolixiaException(ApplicationConstant.ERROR_MESSAGE_FIELDDEFID_NOT_FOUND, ApplicationConstant.ERROR_CODE_FIELDDEFID_NOT_FOUND, ApplicationConstant.HTTP_SC_NOT_FOUND);
-        payload.getQuestionairePage().getQuestionaireSection().getQuestionaireSet().getQuestionaireCard().getQuestionaireType().setTimestamp(LocalDateTime.now());
+        payload.getQuestionairePage().getQuestionaireSection().getQuestionaireSet().getQuestionaireCard().getQuestionaireType().setTimestamp(LocalDateTime.now().atZone(ZoneOffset.UTC).toEpochSecond());
         return questionairePageFieldsRepository.save(payload);
     }
 

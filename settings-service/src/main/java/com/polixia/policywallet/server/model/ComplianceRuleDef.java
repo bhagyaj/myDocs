@@ -50,7 +50,7 @@ public class ComplianceRuleDef {
     private String PageName;
     @ManyToOne
     @JoinColumn(name = "QuestionairePageFieldId")
-    @JsonView(DataView.Basic.class)
+    @JsonView(DataView.DataSummary.class)
     @NotNull(message = ApplicationConstant.ERROR_MESSAGE_REQUIRED_DATA_NOT_FOUND)
     private QuestionairePageField questionairePageField;
     @Column(name = "FieldName")
