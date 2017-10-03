@@ -44,7 +44,7 @@ public class QuestionairePageField {
     private String pageName;
     @ManyToOne
     @JoinColumn(name = "FieldDefId")
-    @JsonView(DataView.ServiceSummary.class)
+    @JsonView(DataView.Basic.class)
     @NotNull(message = ApplicationConstant.ERROR_MESSAGE_REQUIRED_DATA_NOT_FOUND)
     private FieldDef fieldDef;
     @Column(name = "FieldName")

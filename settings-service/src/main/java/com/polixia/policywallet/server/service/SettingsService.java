@@ -2,7 +2,6 @@ package com.polixia.policywallet.server.service;
 
 import com.polixia.policywallet.server.model.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public interface SettingsService {
@@ -42,19 +41,18 @@ public interface SettingsService {
 
     public List<Setting> getVersions(int version);
 
+    public List<Compliance> getCompliance(int version);
 
     QuestionaireSet getQuestionaireSet(int id);
 
     public List<ResponseData> getcSettingsByVersion(Integer id);
-
-    List<ComplianceRule> getCompliance(long timestamp);
 
 
     List<FieldDef> getFieldDefinitions(Integer storeserver);
 
     FieldDef createFieldDefinition(FieldDef fieldDef);
 
-    List<StoreServer> getStoreserverVersions(String storeserver);
+    List<CarrierToVersion> getStoreserverVersions(String storeserver);
 
 
     EventTypeDef createEventTypeDefinition(EventTypeDef eventTypeDef);
@@ -120,6 +118,4 @@ public interface SettingsService {
     List<FieldTypeDef> getFieldTypesByVersion(Integer version);
 
     List<QuestionaireType> getQuestionaireByOwnerAndType(Integer storeserverId, String questionaire);
-
-    List<QuestionaireData> getHierarchicalQuestionaireSync(Long dateTime);
 }

@@ -12,9 +12,6 @@ import com.polixia.policywallet.server.util.ApplicationConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-
 /**
  * QuestionairePage Service Implementation
  */
@@ -76,7 +73,6 @@ public class QuestionairePageServiceImpl implements QuestionairePageService {
                 payload.setComplianceRule(cComplianceRules.getComplainceRule());
             }
         }
-        payload.getQuestionaireSection().getQuestionaireSet().getQuestionaireCard().getQuestionaireType().setTimestamp(LocalDateTime.now().atZone(ZoneOffset.UTC).toEpochSecond());
         return questionairePageRepository.save(payload);
     }
 

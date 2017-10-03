@@ -19,9 +19,9 @@ public class ComplianceRuleDef {
     @Column(name = "Version")
     @JsonView(DataView.Basic.class)
     private String version;
-    @Column(name = "StoreServer")
+    @Column(name = "Carrier")
     @JsonView(DataView.Basic.class)
-    private String storeServer;
+    private String carrier;
     @ManyToOne
     @JoinColumn(name = "ComplianceRuleId")
     @JsonView(DataView.DataSummary.class)
@@ -50,7 +50,7 @@ public class ComplianceRuleDef {
     private String PageName;
     @ManyToOne
     @JoinColumn(name = "QuestionairePageFieldId")
-    @JsonView(DataView.DataSummary.class)
+    @JsonView(DataView.Basic.class)
     @NotNull(message = ApplicationConstant.ERROR_MESSAGE_REQUIRED_DATA_NOT_FOUND)
     private QuestionairePageField questionairePageField;
     @Column(name = "FieldName")
@@ -82,12 +82,12 @@ public class ComplianceRuleDef {
         this.version = version;
     }
 
-    public String getStoreServer() {
-        return storeServer;
+    public String getCarrier() {
+        return carrier;
     }
 
-    public void setStoreServer(String storeServer) {
-        this.storeServer = storeServer;
+    public void setCarrier(String carrier) {
+        this.carrier = carrier;
     }
 
     public ComplianceRule getComplianceRule() {

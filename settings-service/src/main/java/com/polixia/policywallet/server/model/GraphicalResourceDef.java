@@ -30,7 +30,7 @@ public class GraphicalResourceDef {
     @JoinColumn(name = "StoreServerId")
     @JsonView(DataView.DataSummary.class)
     @NotNull(message = ApplicationConstant.ERROR_MESSAGE_REQUIRED_DATA_NOT_FOUND)
-    private StoreServer sStoreServer;
+    private CarrierToVersion CarrierToVersion;
     @Column(name = "Owner")
     @JsonView(DataView.Basic.class)
     private String owner;
@@ -74,12 +74,12 @@ public class GraphicalResourceDef {
         this.resourceType = resourceType;
     }
 
-    public StoreServer getsStoreServer() {
-        return sStoreServer;
+    public CarrierToVersion getCarrierToVersion() {
+        return CarrierToVersion;
     }
 
-    public void setsStoreServer(StoreServer sStoreServer) {
-        this.sStoreServer = sStoreServer;
+    public void setCarrierToVersion(CarrierToVersion carrierToVersion) {
+        this.CarrierToVersion = carrierToVersion;
     }
 
     public String getOwner() {

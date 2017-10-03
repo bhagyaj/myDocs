@@ -12,6 +12,6 @@ import java.util.List;
  */
 public interface EventSubscriptionRepository extends Repository<EventSubscription, Integer> {
 
-    @Query("SELECT es FROM EventSubscription es WHERE es.sLoBSubscription.sStoreBrand.sStoreServer.cSettings.id > :version")
+    @Query("SELECT es FROM EventSubscription es WHERE es.sLoBSubscription.sStoreBrand.carrierToVersion.cSettings.id > :version")
     List<Object> getCEventSubscriptionByVersionId(@Param("version") Integer id);
 }

@@ -1,13 +1,13 @@
 package com.polixia.policywallet.server.service.impl;
 
 import com.polixia.policywallet.core.exceptions.PolixiaException;
+import com.polixia.policywallet.server.model.CarrierToVersion;
 import com.polixia.policywallet.server.model.FieldDef;
 import com.polixia.policywallet.server.model.FieldTypeDef;
-import com.polixia.policywallet.server.model.StoreServer;
 import com.polixia.policywallet.server.repository.FieldDefRepository;
 import com.polixia.policywallet.server.service.FieldDefService;
 import com.polixia.policywallet.server.service.FieldTypeDefService;
-import com.polixia.policywallet.server.service.StoreServerService;
+import com.polixia.policywallet.server.service.CarrierToVersionService;
 import com.polixia.policywallet.server.util.ApplicationConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class FieldDefServiceImpl implements FieldDefService {
     FieldDefRepository fieldDefRepository;
 
     @Autowired
-    StoreServerService storeServerService;
+    CarrierToVersionService carrierToVersionService;
 
     @Autowired
     FieldTypeDefService fieldTypeDefService;
@@ -31,7 +31,7 @@ public class FieldDefServiceImpl implements FieldDefService {
     @Override
     public FieldDef getCFieldDefById(Integer id) {
         FieldDef fieldDef = fieldDefRepository.getCFieldDefById(id);
-        fieldDef.setStoreServerId(fieldDef.getsStoreServer().getId());
+        fieldDef.setCarrierToVersionId(fieldDef.getCarrierToVersion().getId());
         if (fieldDef.getFieldTypeDef()!=null)
             fieldDef.setFieldTypeDefId(fieldDef.getFieldTypeDef().getId());
         return fieldDef;
@@ -49,7 +49,7 @@ public class FieldDefServiceImpl implements FieldDefService {
             for (FieldDef fieldDef : fieldDefs) {
                 if (fieldDef.getFieldTypeDef()!=null)
                 fieldDef.setFieldTypeDefId(fieldDef.getFieldTypeDef().getId());
-                fieldDef.setStoreServerId(fieldDef.getsStoreServer().getId());
+                fieldDef.setCarrierToVersionId(fieldDef.getCarrierToVersion().getId());
             }
         }
         return fieldDefs;
@@ -72,17 +72,17 @@ public class FieldDefServiceImpl implements FieldDefService {
             }
         }
 
-        if(fieldDef.getsStoreServer().getId()==null){
+        if(fieldDef.getCarrierToVersion().getId()==null){
             throw new PolixiaException(ApplicationConstant.ERROR_MESSAGE_IDENTIFIER_NOT_FOUND, ApplicationConstant.ERROR_CODE_IDENTIFIER_NOT_FOUND, ApplicationConstant.HTTP_BAD_REQUEST);
         }
 
-        StoreServer storeServer = storeServerService.getStoreServerById(fieldDef.getsStoreServer().getId());
-        if (storeServer == null) {
+        CarrierToVersion carrierToVersion = carrierToVersionService.getStoreServerById(fieldDef.getCarrierToVersion().getId());
+        if (carrierToVersion == null) {
             throw new PolixiaException(ApplicationConstant.ERROR_MESSAGE_STORESERVER_ID_NOT_FOUND, ApplicationConstant.ERROR_CODE_QUESTIONAIRETYPE_ID_NOT_FOUND, ApplicationConstant.HTTP_SC_NOT_FOUND);
         } else {
-            fieldDef.setsStoreServer(storeServer);
-            fieldDef.setVersion(storeServer.getVersion());
-            fieldDef.setFieldOwner(storeServer.getStoreServer());
+            fieldDef.setCarrierToVersion(carrierToVersion);
+            fieldDef.setVersion(carrierToVersion.getVersion());
+            fieldDef.setFieldOwner(carrierToVersion.getCarrierCode());
          }
         return fieldDefRepository.save(fieldDef);
     }

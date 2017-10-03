@@ -1,17 +1,11 @@
 package com.polixia.policywallet.server.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.polixia.policywallet.server.jview.DataView;
 import com.polixia.policywallet.server.util.ApplicationConstant;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.List;
 
 @Entity
 @Table(name = "ccompliancerules")
@@ -26,13 +20,13 @@ public class ComplianceRule {
     @JsonView(DataView.Basic.class)
     private String version;
     @ManyToOne
-    @JoinColumn(name = "StoreServerId")
+    @JoinColumn(name = "CarrierToVersionId")
     @JsonView(DataView.DataSummary.class)
     @NotNull(message = ApplicationConstant.ERROR_MESSAGE_REQUIRED_DATA_NOT_FOUND)
-    private StoreServer sStoreServer;
-    @Column(name = "StoreServer")
+    private CarrierToVersion carrierToVersion;
+    @Column(name = "Carrier")
     @JsonView(DataView.Basic.class)
-    private String storeServer;
+    private String carrier;
     @Column(name = "ComplainceRule")
     @JsonView(DataView.Specific.class)
     private String complainceRule;
@@ -45,21 +39,6 @@ public class ComplianceRule {
     @Column(name = "ConsentGroup")
     @JsonView(DataView.Basic.class)
     private String consentGroup;
-    @Column(name = "Timestamp")
-    @JsonView(DataView.Basic.class)
-    private long timestamp;
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "complianceRule")
-    @JsonView(DataView.Basic.class)
-    List<ComplianceRuleDef> complianceRuleDefs;
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "cComplianceRule")
-    @JsonView(DataView.Basic.class)
-    List<EventCompliance> eventCompliances;
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "cComplianceRule")
-    @JsonView(DataView.Basic.class)
-    List<QuestionairePageFldCompliance> questionairePageFldCompliances;
 
     public Integer getId() {
         return id;
@@ -77,20 +56,20 @@ public class ComplianceRule {
         this.version = version;
     }
 
-    public StoreServer getsStoreServer() {
-        return sStoreServer;
+    public CarrierToVersion getCarrierToVersion() {
+        return carrierToVersion;
     }
 
-    public void setsStoreServer(StoreServer sStoreServer) {
-        this.sStoreServer = sStoreServer;
+    public void setCarrierToVersion(CarrierToVersion carrierToVersion) {
+        this.carrierToVersion = carrierToVersion;
     }
 
-    public String getStoreServer() {
-        return storeServer;
+    public String getCarrier() {
+        return carrier;
     }
 
-    public void setStoreServer(String storeServer) {
-        this.storeServer = storeServer;
+    public void setCarrier(String carrier) {
+        this.carrier = carrier;
     }
 
     public String getComplainceRule() {
@@ -123,37 +102,5 @@ public class ComplianceRule {
 
     public void setConsentGroup(String consentGroup) {
         this.consentGroup = consentGroup;
-    }
-
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public List<ComplianceRuleDef> getComplianceRuleDefs() {
-        return complianceRuleDefs;
-    }
-
-    public void setComplianceRuleDefs(List<ComplianceRuleDef> complianceRuleDefs) {
-        this.complianceRuleDefs = complianceRuleDefs;
-    }
-
-    public List<EventCompliance> getEventCompliances() {
-        return eventCompliances;
-    }
-
-    public void setEventCompliances(List<EventCompliance> eventCompliances) {
-        this.eventCompliances = eventCompliances;
-    }
-
-    public List<QuestionairePageFldCompliance> getQuestionairePageFldCompliances() {
-        return questionairePageFldCompliances;
-    }
-
-    public void setQuestionairePageFldCompliances(List<QuestionairePageFldCompliance> questionairePageFldCompliances) {
-        this.questionairePageFldCompliances = questionairePageFldCompliances;
     }
 }

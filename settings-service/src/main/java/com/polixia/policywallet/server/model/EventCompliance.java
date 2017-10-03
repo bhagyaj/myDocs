@@ -19,7 +19,7 @@ public class EventCompliance {
     @Column(name = "Version")
     @JsonView(DataView.Basic.class)
     private String version;
-    @Column(name = "StoreServer")
+    @Column(name = "CarrierToVersion")
     @JsonView(DataView.Basic.class)
     private String storeServer;
     @Column(name = "StoreBrand")
@@ -38,7 +38,7 @@ public class EventCompliance {
     private String eventType;
     @ManyToOne
     @JoinColumn(name = "ComplianceRuleId")
-    @JsonView(DataView.DataSummary.class)
+    @JsonView(DataView.Basic.class)
     @NotNull(message = ApplicationConstant.ERROR_MESSAGE_REQUIRED_DATA_NOT_FOUND)
     private ComplianceRule cComplianceRule;
     @Column(name = "ComplianceRule")

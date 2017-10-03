@@ -21,10 +21,10 @@ public class QuestionaireType {
     @JsonView(DataView.Basic.class)
     private String version;
     @ManyToOne
-    @JoinColumn(name = "StoreServerId")
-    @JsonView(DataView.ServiceSummary.class)
+    @JoinColumn(name = "CarrierToVersionId")
+    @JsonView(DataView.Basic.class)
     @NotNull(message = ApplicationConstant.ERROR_MESSAGE_REQUIRED_DATA_NOT_FOUND)
-    private StoreServer storeServer;
+    private CarrierToVersion carrierToVersion;
     @Column(name = "QuestionaireOwner")
     @JsonView(DataView.Basic.class)
     private String questionaireOwner;
@@ -40,9 +40,6 @@ public class QuestionaireType {
     @Column(name = "ReviewSubmit")
     @JsonView(DataView.Basic.class)
     private Boolean reviewSubmit;
-    @Column(name = "Timestamp")
-    @JsonView(DataView.Basic.class)
-    protected Long timestamp;
     @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL}, mappedBy = "questionaireType")
     @JsonView(DataView.HSpecific.class)
     private Set<QuestionaireCard> cards;
@@ -63,12 +60,12 @@ public class QuestionaireType {
         this.version = version;
     }
 
-    public StoreServer getStoreServer() {
-        return storeServer;
+    public CarrierToVersion getCarrierToVersion() {
+        return carrierToVersion;
     }
 
-    public void setStoreServer(StoreServer storeServer) {
-        this.storeServer = storeServer;
+    public void setCarrierToVersion(CarrierToVersion carrierToVersion) {
+        this.carrierToVersion = carrierToVersion;
     }
 
     public String getQuestionaireOwner() {
@@ -117,14 +114,6 @@ public class QuestionaireType {
 
     public void setCards(Set<QuestionaireCard> cards) {
         this.cards = cards;
-    }
-
-    public Long getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Long timestamp) {
-        this.timestamp = timestamp;
     }
 }
 

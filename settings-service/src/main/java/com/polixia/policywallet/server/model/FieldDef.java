@@ -21,12 +21,12 @@ public class FieldDef {
     private String version;
     @Transient
     @JsonView(DataView.Basic.class)
-    private Integer storeServerId;
+    private Integer carrierToVersionId;
     @ManyToOne
-    @JoinColumn(name = "StoreServerId")
+    @JoinColumn(name = "CarrierToVersionId")
     @JsonView(DataView.DataSummary.class)
     @NotNull(message = ApplicationConstant.ERROR_MESSAGE_REQUIRED_DATA_NOT_FOUND)
-    private StoreServer sStoreServer;
+    private CarrierToVersion carrierToVersion;
     @Column(name = "FieldOwner")
     @JsonView(DataView.Specific.class)
     private String fieldOwner;
@@ -75,12 +75,12 @@ public class FieldDef {
         this.version = version;
     }
 
-    public StoreServer getsStoreServer() {
-        return sStoreServer;
+    public CarrierToVersion getCarrierToVersion() {
+        return carrierToVersion;
     }
 
-    public void setsStoreServer(StoreServer sStoreServer) {
-        this.sStoreServer = sStoreServer;
+    public void setCarrierToVersion(CarrierToVersion carrierToVersion) {
+        this.carrierToVersion = carrierToVersion;
     }
 
     public String getFieldOwner() {
@@ -155,12 +155,12 @@ public class FieldDef {
         this.upper = upper;
     }
 
-    public Integer getStoreServerId() {
-        return storeServerId;
+    public Integer getCarrierToVersionId() {
+        return carrierToVersionId;
     }
 
-    public void setStoreServerId(Integer storeServerId) {
-        this.storeServerId = storeServerId;
+    public void setCarrierToVersionId(Integer carrierToVersionId) {
+        this.carrierToVersionId = carrierToVersionId;
     }
 
     public Integer getFieldTypeDefId() {

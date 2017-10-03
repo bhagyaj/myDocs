@@ -20,7 +20,7 @@ public class LoBSubscription {
     @Column(name = "Version")
     @JsonView(DataView.Basic.class)
     private String version;
-    @Column(name = "StoreServer")
+    @Column(name = "CarrierToVersion")
     @JsonView(DataView.Basic.class)
     private String storeServer;
     @ManyToOne

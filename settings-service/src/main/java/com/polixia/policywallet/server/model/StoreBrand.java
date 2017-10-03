@@ -24,13 +24,13 @@ public class StoreBrand {
     @JsonView(DataView.Basic.class)
     private String version;
     @ManyToOne
-    @JoinColumn(name = "StoreServerId")
+    @JoinColumn(name = "CarrierToVersionId")
     @JsonView(DataView.DataSummary.class)
     @NotNull(message = ApplicationConstant.ERROR_MESSAGE_REQUIRED_DATA_NOT_FOUND)
-    private StoreServer sStoreServer;
-    @Column(name = "StoreSever")
+    private CarrierToVersion carrierToVersion;
+    @Column(name = "Carrier")
     @JsonView(DataView.Basic.class)
-    private String storeServer;
+    private String carrier;
     @Column(name = "StoreBrand")
     @JsonView(DataView.Basic.class)
     private String storeBrand;
@@ -59,20 +59,20 @@ public class StoreBrand {
         this.version = version;
     }
 
-    public StoreServer getsStoreServer() {
-        return sStoreServer;
+    public CarrierToVersion getCarrierToVersion() {
+        return carrierToVersion;
     }
 
-    public void setsStoreServer(StoreServer sStoreServer) {
-        this.sStoreServer = sStoreServer;
+    public void setCarrierToVersion(CarrierToVersion carrierToVersion) {
+        this.carrierToVersion = carrierToVersion;
     }
 
-    public String getStoreServer() {
-        return storeServer;
+    public String getCarrier() {
+        return carrier;
     }
 
-    public void setStoreServer(String storeServer) {
-        this.storeServer = storeServer;
+    public void setCarrier(String carrier) {
+        this.carrier = carrier;
     }
 
     public String getStoreBrand() {

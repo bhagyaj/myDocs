@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface ComplianceRuleService{
     ComplianceRule getComplianceRuleById(Integer Id);
-    List<ComplianceRule> getComplianceRulesBytimestampGreaterThan(long timestamp);
+    List<ComplianceRule> getComplianceRulesByVersion(Integer version);
 
     List<ComplianceRule> getAllCompliances(Integer storeserver);
 }

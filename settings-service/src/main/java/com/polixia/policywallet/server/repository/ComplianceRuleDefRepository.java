@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 public interface ComplianceRuleDefRepository extends Repository<ComplianceRuleDef, Integer> {
-    @Query("SELECT crd FROM ComplianceRuleDef crd where crd.complianceRule.sStoreServer.cSettings.id=:version")
+    @Query("SELECT crd FROM ComplianceRuleDef crd where crd.complianceRule.carrierToVersion.cSettings.id=:version")
     List<ComplianceRuleDef> getComplianceRuleDefByVersion(@Param("version") Integer version);
 
 }

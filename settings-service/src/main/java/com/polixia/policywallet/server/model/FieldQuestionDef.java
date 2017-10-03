@@ -31,6 +31,7 @@ public class FieldQuestionDef {
     @NotNull(message = ApplicationConstant.ERROR_MESSAGE_REQUIRED_DATA_NOT_FOUND)
     private FieldDef cFieldDef;
     @Column(name = "FieldCode")
+    @JsonView(DataView.DataSummary.class)
     private String fieldCode;
     @Column(name = "OrderNumber")
     @JsonView(DataView.DataSummary.class)

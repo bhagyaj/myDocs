@@ -6,7 +6,6 @@ import com.polixia.policywallet.server.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -46,6 +45,9 @@ public class SettingsServiceImpl implements SettingsService {
     QuestionaireSetService questionaireSetService;
 
     @Autowired
+    FieldQuestiondefService fieldQuestiondefService;
+
+    @Autowired
     QuestionairePageService questionairePageService;
 
 
@@ -65,7 +67,7 @@ public class SettingsServiceImpl implements SettingsService {
     SettingsRepository settingsRepository;
 
     @Autowired
-    StoreServerService storeServerService;
+    CarrierToVersionService carrierToVersionService;
 
 
     @Override
@@ -148,11 +150,6 @@ public class SettingsServiceImpl implements SettingsService {
         settingsDataList.add(settingsData);
         return settingsDataList;
     }
-    @Override
-    public List<ComplianceRule> getCompliance(long timestamp) {
-        return complianceRuleService.getComplianceRulesBytimestampGreaterThan(timestamp);
-    }
-
 
     @Override
     public List<FieldDef> getFieldDefinitions(Integer storeserver) {
@@ -214,6 +211,12 @@ public class SettingsServiceImpl implements SettingsService {
         cFieldTypedefData.setTableName("cfieldtypedef");
         cFieldTypedefData.setDataList(fieldTypeDefService.getCFieldTypeDefByVersionId(version));
         eventTypeDataList.add(cFieldTypedefData);
+
+        ResponseData cFieldQuestionDefData = new ResponseData();
+        cFieldQuestionDefData.setTableName("cfieldquestiondef");
+        cFieldQuestionDefData.setDataList(fieldQuestiondefService.getFieldQuestionDefByVersion(version));
+        eventTypeDataList.add(cFieldQuestionDefData);
+
 
         ResponseData clobDefData = new ResponseData();
         clobDefData.setTableName("clobdef");
@@ -284,10 +287,25 @@ public class SettingsServiceImpl implements SettingsService {
         return settingsRepository.getSettingsListByVersion(version);
     }
 
+    @Override
+    public List<Compliance> getCompliance(int version) {
+        List<Compliance> data = new ArrayList<>();
+        List<Setting> versions = getVersions(version);
+        for (Setting setting : versions) {
+            Compliance compliance = new Compliance();
+            compliance.setVersion(setting.getId());
+            compliance.setcComplianceRuleDefs(complianceRuleDefService.getComplianceRuleDefByVersion(setting.getId()));
+            compliance.setcComplianceRules(complianceRuleService.getComplianceRulesByVersion(setting.getId()));
+            compliance.setcEventCompliances(eventCompliancesService.getEventComplianceByVersion(setting.getId()));
+            compliance.setcQuestionairePageFldCompliances(questionairePageFldCompliancesService.getPageFldComplianceByVersion(setting.getId()));
+            data.add(compliance);
+        }
+        return data;
+    }
 
     @Override
-    public List<StoreServer> getStoreserverVersions(String storeserver) {
-        return storeServerService.getStoreserverVersions(storeserver);
+    public List<CarrierToVersion> getStoreserverVersions(String storeserver) {
+        return carrierToVersionService.getStoreserverVersions(storeserver);
     }
 
     @Override
@@ -464,15 +482,6 @@ public class SettingsServiceImpl implements SettingsService {
     @Override
     public List<QuestionaireType> getQuestionaireByOwnerAndType(Integer storeserverId, String questionaire) {
         return questionaireTypeService.getQuestionaireByOwnerAndType(storeserverId,questionaire);
-    }
-
-    @Override
-    public List<QuestionaireData> getHierarchicalQuestionaireSync(Long dateTime) {
-        List<QuestionaireData> data = new ArrayList();
-        QuestionaireData questionaireData = new QuestionaireData();
-        questionaireData.setQuestionaires(questionaireTypeService.getHierarchicalQuestionaireSync(dateTime));
-        data.add(questionaireData);
-        return data;
     }
 
     @Override

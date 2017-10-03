@@ -14,11 +14,11 @@ public interface FieldDefRepository extends Repository<FieldDef, Integer> {
 
     FieldDef getCFieldDefById(Integer id);
 
-    @Query("SELECT fd FROM FieldDef fd WHERE fd.sStoreServer.cSettings.id > :version")
+    @Query("SELECT fd FROM FieldDef fd WHERE fd.carrierToVersion.cSettings.id > :version")
     List<Object> getCFieldDefByVersionId(@Param("version") Integer version);
 
-    @Query("SELECT fd FROM FieldDef fd WHERE fd.sStoreServer.id=:storeserver")
-    List<FieldDef> findByStoreServer(@Param("storeserver") Integer sStoreServer);
+    @Query("SELECT fd FROM FieldDef fd WHERE fd.carrierToVersion.id=:carrierToVersion")
+    List<FieldDef> findByStoreServer(@Param("carrierToVersion") Integer carrierToVersion);
 
     FieldDef save(FieldDef fieldDef);
 }

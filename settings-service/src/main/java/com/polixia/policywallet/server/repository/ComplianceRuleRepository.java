@@ -14,12 +14,10 @@ import java.util.List;
 public interface ComplianceRuleRepository extends Repository<ComplianceRule, Integer> {
     ComplianceRule getComplianceRuleById(Integer Id);
 
-    @Query("SELECT cr FROM ComplianceRule cr where cr.sStoreServer.cSettings.id=:version")
+    @Query("SELECT cr FROM ComplianceRule cr where cr.carrierToVersion.cSettings.id=:version")
     List<ComplianceRule> getComplianceRulesByVersion(@Param("version") Integer version);
 
 
-    @Query("SELECT cr FROM ComplianceRule cr WHERE cr.sStoreServer.id=:storeserver")
-    List<ComplianceRule> findBystoreserver(@Param("storeserver") Integer storeserver);
-
-    List<ComplianceRule> getComplianceRulesBytimestampGreaterThan(long timestamp);
+    @Query("SELECT cr FROM ComplianceRule cr WHERE cr.carrierToVersion.id=:carrierToVersionId")
+    List<ComplianceRule> findBystoreserver(@Param("carrierToVersionId") Integer carrierToVersionId);
 }

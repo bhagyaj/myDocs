@@ -1,5 +1,6 @@
 package com.polixia.policywallet.server.service;
 
+import com.polixia.policywallet.server.model.QuestionaireData;
 import com.polixia.policywallet.server.model.QuestionaireType;
 
 import java.util.List;
@@ -20,6 +21,4 @@ public interface QuestionaireTypeService {
     List<QuestionaireType> getQuestionaireByStoreserverId(int storeserverId);
 
     List<QuestionaireType> getQuestionaireByOwnerAndType(Integer storeserverId, String questionaire);
-
-    List<QuestionaireType> getHierarchicalQuestionaireSync(Long dateTime);
 }

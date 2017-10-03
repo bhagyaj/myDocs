@@ -12,7 +12,7 @@ import java.util.List;
  * Questionaire Page Field Compliance
  */
 public interface QuestionairePageFldCompliancesRepository extends Repository<QuestionairePageFldCompliance, Integer> {
-    @Query("SELECT qpfc FROM QuestionairePageFldCompliance qpfc WHERE qpfc.questionairePageField.questionairePage.questionaireSection.questionaireSet.questionaireCard.questionaireType.storeServer.cSettings.id=:version")
+    @Query("SELECT qpfc FROM QuestionairePageFldCompliance qpfc WHERE qpfc.questionairePageField.questionairePage.questionaireSection.questionaireSet.questionaireCard.questionaireType.carrierToVersion.cSettings.id=:version")
     List<QuestionairePageFldCompliance> getPageFldComplianceByVersion(@Param("version") Integer version);
 
 }

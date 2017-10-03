@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface EventCompliancesRepository extends Repository<EventCompliance, Integer> {
 
-    @Query("SELECT ec FROM EventCompliance ec WHERE ec.loBSubscription.sStoreBrand.sStoreServer.cSettings.id=:version")
+    @Query("SELECT ec FROM EventCompliance ec WHERE ec.loBSubscription.sStoreBrand.carrierToVersion.cSettings.id=:version")
     List<EventCompliance> getEventComplianceByVersion(@Param("version") Integer version);
 
 

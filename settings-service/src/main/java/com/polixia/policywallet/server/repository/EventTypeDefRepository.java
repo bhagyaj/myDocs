@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface EventTypeDefRepository extends Repository<EventTypeDef, Integer> {
 
-    @Query("SELECT ed FROM EventTypeDef ed WHERE ed.questionaireType.storeServer.cSettings.id > :version")
+    @Query("SELECT ed FROM EventTypeDef ed WHERE ed.questionaireType.carrierToVersion.cSettings.id > :version")
     List<Object> getCEventTypeDefByVersionId(@Param("version") Integer id);
 
     EventTypeDef save(EventTypeDef eventTypeDef);
